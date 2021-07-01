@@ -65,6 +65,7 @@ pipeline{
                 sleep(5) 
                 dir('functional-test'){
                     git credentialsId: 'github_login', url: 'https://github.com/LeandroHPerez/tasks-functional-tests'
+                    bat 'mvn clean package -DskipTests=true'
                     bat 'mvn test'
                 }
             }
