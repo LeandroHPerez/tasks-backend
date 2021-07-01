@@ -26,14 +26,12 @@ pipeline{
             }
         }
         stage('Quality Gate'){
-            steps{
-                timeout(time: 5, unit: 'MINUTES') { 
-                    def qualityGate = waitForQualityGate() 
-                    if (qualityGate.status != 'OK') {
-                        bat "echo O código não está de acordo com as regras do Sonar: ${qualityGate.status}"
-                    }
+            timeout(time: 5, unit: 'MINUTES') { 
+                def qualityGate = waitForQualityGate() 
+                if (qualityGate.status != 'OK') {
+                    bat "echo O código não está de acordo com as regras do Sonar: ${qualityGate.status}"
                 }
-            }
+            }            
         }
     }
 }
