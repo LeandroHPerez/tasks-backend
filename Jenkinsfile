@@ -59,5 +59,14 @@ pipeline{
                 }
             }
         }
+        stage('Functional Test'){
+            steps{
+                bat 'echo stage Functional Test'
+                dir('functional-test'){
+                    git credentialsId: 'github_login', url: 'https://github.com/LeandroHPerez/tasks-functional-tests'
+                    bat 'mvn test'
+                }
+            }
+        }
     }
 }
