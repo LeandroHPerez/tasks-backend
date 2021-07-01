@@ -24,12 +24,15 @@ pipeline{
                 }
                 
             }
-        }stage("Quality Gate") { 
-            timeout(time: 5, unit: 'MINUTES') { 
-            def qualityGate = waitForQualityGate() 
-            if (qualityGate.status != 'OK') {
-                error "O código não está de acordo com as regras do Sonar: ${qualityGate.status}"
+        }
+        stage('Quality Gate'){
+            steps{
+                sleep(30)               
+                bat 'echo step Quality Gate'
+                timeout(time: 1, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
             }
-        }      
+        }
     }
 }
