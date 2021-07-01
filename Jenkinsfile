@@ -27,7 +27,7 @@ pipeline{
         }
         stage('Quality Gate'){
             steps{
-                sleep(10)               
+                sleep(5)               
                 bat 'echo stage Quality Gate'
                 timeout(time: 5, unit: 'MINUTES') { 
                     //waitForQualityGate abortPipeline: false
@@ -62,6 +62,7 @@ pipeline{
         stage('Functional Test'){
             steps{
                 bat 'echo stage Functional Test'
+                sleep(5) 
                 dir('functional-test'){
                     git credentialsId: 'github_login', url: 'https://github.com/LeandroHPerez/tasks-functional-tests'
                     bat 'mvn test'
