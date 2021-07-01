@@ -49,5 +49,15 @@ pipeline{
                 }
             }
         }
+        stage('Deploy Frontend'){
+            steps{
+                bat 'echo stage Deploy Frontend'
+                dir('frontend'){
+                    git credentialsId: 'github_login', url: 'https://github.com/LeandroHPerez/tasks-frontend'
+                    bat 'mvn clean package -DskipTests=true'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+            }
+        }
     }
 }
