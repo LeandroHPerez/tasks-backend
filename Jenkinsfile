@@ -78,5 +78,12 @@ pipeline{
                 bat 'docker-compose up -d'                
             }
         }
+        stage('Health Check'){
+            sleep(10)
+            steps{
+                bat 'echo stage Health Check'
+                bat 'mvn verify -Dskip.surefile.tests'                     
+            }
+        }
     }
 }
